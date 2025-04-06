@@ -32,7 +32,10 @@ To run this project locally:
 
 ## 🎥 Demo 
 
-Later.
+[![Demo](https://img.youtube.com/vi/8TXr26_0dCQ/0.jpg)](https://www.youtube.com/watch?v=8TXr26_0dCQ&t=16s)
+
+[Watch the Video](https://www.youtube.com/watch?v=8TXr26_0dCQ&t=16s)
+
 
 ## 📸 Screenshots
 
