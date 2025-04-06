@@ -40,7 +40,7 @@ Later.
 ## 📂 Project Structure
 
 ```
-week_5/
+expense/
 ├── app/
 │   ├── src/
 │   │   ├── main/
@@ -73,7 +73,7 @@ Firebase AUTH :
 
 [![Expense Manager Demo](https://img.youtube.com/vi/QAKq8UBv4GI/0.jpg)](https://youtu.be/QAKq8UBv4GI)
 
-[Watch the Demo](https://youtu.be/QAKq8UBv4GI)
+[Watch the Video](https://youtu.be/QAKq8UBv4GI)
 
 Swap to delete :
 
