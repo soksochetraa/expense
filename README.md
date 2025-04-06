@@ -1,4 +1,4 @@
-# Lab 5 - Android Studio Project
+# Lab 5 - expense (Android Studio Project)
 
 ## 📱 Project Overview
 
