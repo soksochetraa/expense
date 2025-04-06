@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static Retrofit retrofit = null;
     private static String baseUrl = "https://expense-tracker-db-kbxp.onrender.com/";
-    private static String dbName = "54373606-c3b7-4c0e-a954-6ffe5ce6af2d";
+    private static String dbName = "d2e54c0f-ef1b-48b3-a2c8-3956f5052df0";
 
     public static void setBaseUrl(String url) {
         baseUrl = url;
