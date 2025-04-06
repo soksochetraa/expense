@@ -2,6 +2,7 @@ package com.example.expense;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class DetailActivity extends AppCompatActivity {
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        showProgressBar();
+
         cardRepository = new CardRepository();
         String cardId = getIntent().getStringExtra("CardId");
         cardRepository.getCard(String.valueOf(cardId), new IApiCallback<>() {
@@ -36,13 +39,22 @@ public class DetailActivity extends AppCompatActivity {
                 binding.tvCategory.setText(card.getCategory());
                 binding.tvDate.setText(card.getCreatedDate());
                 binding.tvRemark.setText(card.getRemark());
+                hideProgressBar();
             }
 
             @Override
             public void onError(String errorMessage) {
                 binding.tvAmount.setText("Error loading data");
+                hideProgressBar();
             }
         });
         binding.backButton.setOnClickListener(view -> onBackPressed());
+    }
+    public void showProgressBar() {
+        binding.loadingBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        binding.loadingBar.setVisibility(View.GONE);
     }
 }
