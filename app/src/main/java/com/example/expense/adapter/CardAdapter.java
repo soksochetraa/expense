@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
@@ -69,8 +70,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         notifyItemRangeInserted(startPosition, newCards.size());
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        protected ExpenseCardBinding binding;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public ExpenseCardBinding binding;
 
         public ViewHolder(@NonNull ExpenseCardBinding binding) {
             super(binding.getRoot());
@@ -82,10 +83,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         try {
             SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
             SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-            return displayFormat.format(isoFormat.parse(isoDate));
+            return displayFormat.format(Objects.requireNonNull(isoFormat.parse(isoDate)));
         } catch (ParseException e) {
             return isoDate;
         }
     }
-
+    public Card getCardAt(int position) {
+        return cards.get(position);
+    }
 }

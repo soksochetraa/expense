@@ -1,6 +1,7 @@
 package com.example.expense;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,6 @@ import com.example.expense.databinding.ActivityHomeBinding;
 import com.example.expense.fragment.AddExpenseFragment;
 import com.example.expense.fragment.ExpenseListFragment;
 import com.example.expense.fragment.HomeFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -47,4 +46,12 @@ public class HomeActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+    public void showProgressBar() {
+        binding.loadingBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        binding.loadingBar.setVisibility(View.GONE);
+    }
+
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">expense</string>
-
-    <!-- Fragment Home -->
     <string name="good_afternoon">Good Afternoon,</string>
     <string name="username">USERNAME</string>
     <string name="button_settings">Button Settings</string>
@@ -14,8 +12,6 @@
     <string name="_19_12_2025">NONE</string>
     <string name="other_expense">Other Expenses</string>
     <string name="see_all">See All</string>
-
-    <!-- Fragment Add Expense -->
     <string name="add_new_expense">Add\nNew Expense</string>
     <string name="label_crate_date">Crate Date</string>
     <string name="dd_mm_yyyy">DD - MM - YYYY</string>
@@ -37,8 +33,6 @@
     <string name="button_add_category">Button Add Category</string>
     <string name="label_remark">Remark</string>
     <string name="label_add_expense">Add Expense</string>
-
-    <!-- Card Expense -->
     <string name="des_dollar_symbol">Dollar Symbol</string>
     <string name="tv_view_expense_list">View\nExpense List</string>
     <string name="all_expense">All Expense List</string>
@@ -57,9 +51,11 @@
     <string name="or_register_with">or register with</string>
     <string name="enter_your_username">Enter your username</string>
     <string name="hello_register_to_get_started">Hello! Register to get started</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="transaction_details">Expense Details</string>
     <string name="expense_details">Expense details</string>
     <string name="other_information">Other information :</string>
     <string name="hidden" />
+    <string name="no_expenses_yet_let_s_add_your_first_one">No expenses yet!\nLet\'s add your first one</string>
+    <string name="add_expense_now">Add Expense Now</string>
+    <string name="loading">Loading…</string>
 </resources>

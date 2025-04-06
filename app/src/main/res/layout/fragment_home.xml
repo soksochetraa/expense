@@ -207,15 +207,61 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/error"
+        android:layout_marginTop="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            tools:ignore="UseCompoundDrawables,UselessParent">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_expenses_yet_let_s_add_your_first_one"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#438883"/>
+
+            <Button
+                android:id="@+id/btn_add_expense_now"
+                android:layout_width="331dp"
+                android:layout_height="62dp"
+                android:background="@drawable/btn_bg"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="@string/add_expense_now"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        </LinearLayout>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_other_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/other_expense"
         android:layout_marginStart="20dp"
+        android:fontFamily="@font/urbanist_medium"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="#438883"
         android:layout_marginTop="350dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -245,6 +291,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="745dp"
         android:text="@string/see_all"
+        android:visibility="gone"
         android:textColor="#666666"
         android:gravity="center_horizontal"
         android:textSize="14sp"

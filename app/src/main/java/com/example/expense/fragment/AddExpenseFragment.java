@@ -1,5 +1,6 @@
 package com.example.expense.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,9 +51,10 @@ public class AddExpenseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isLoading = true;
-        showProgressBar();
+        ((HomeActivity) requireActivity()).showProgressBar();
         mAuth = FirebaseAuth.getInstance();
         cardRepository = new CardRepository();
+
         homeActivity = (HomeActivity) getActivity();
 
         FirebaseUser user = mAuth.getCurrentUser();
@@ -67,54 +69,96 @@ public class AddExpenseFragment extends Fragment {
             Intent intent = new Intent(getContext(), LogInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            getActivity().finish();
+
+            Activity activity = getActivity();
+            if (activity != null) {
+                activity.finish();
+            }
         });
 
         binding.btnAddExpense.setOnClickListener(v -> onAddExpenseClicked());
     }
 
     private void onAddExpenseClicked() {
+        if (isLoading) return;
         isLoading = true;
-        showProgressBar();
-        String amount = binding.etAmount.getText().toString();
+        ((HomeActivity) requireActivity()).showProgressBar();
+
+        String amountText = binding.etAmount.getText().toString().trim();
         int selectedRadioButtonId = binding.radioGroup.getCheckedRadioButtonId();
 
-        if (amount.trim().isEmpty() || selectedRadioButtonId == -1) {
-            Toast.makeText(requireContext(), "Invalid input: amount empty or no currency selected.", Toast.LENGTH_SHORT).show();
+        // Basic validation
+        if (amountText.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter an amount.", Toast.LENGTH_SHORT).show();
+            resetLoading();
+            return;
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amountText);
+            if (amount <= 0) {
+                Toast.makeText(requireContext(), "Amount must be greater than 0.", Toast.LENGTH_SHORT).show();
+                resetLoading();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(requireContext(), "Invalid amount format.", Toast.LENGTH_SHORT).show();
+            resetLoading();
+            return;
+        }
+
+        if (selectedRadioButtonId == -1) {
+            Toast.makeText(requireContext(), "Please select a currency.", Toast.LENGTH_SHORT).show();
+            resetLoading();
             return;
         }
 
         RadioButton selectedRadioButton = binding.radioGroup.findViewById(selectedRadioButtonId);
         String currency = selectedRadioButton.getText().toString();
-
         String category = binding.spinnerCategory.getSelectedItem().toString();
-        String remark = binding.etRemark.getText().toString();
-        String createdBy = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "null";
+        String remark = binding.etRemark.getText().toString().trim();
+        String createdBy = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "unknown";
 
-        Date createdDate = new Date();
         String id = UUID.randomUUID().toString();
-        Card card = new Card(id, Double.parseDouble(amount), currency, category, remark, createdBy, createdDate);
+        Date createdDate = new Date();
+        Card card = new Card(id, amount, currency, category, remark, createdBy, createdDate);
 
-        cardRepository.createCard(card, new IApiCallback<Card>() {
+        cardRepository.createCard(card, new IApiCallback<>() {
             @Override
             public void onSuccess(Card result) {
                 if (isAdded()) {
-                    Toast.makeText(requireContext(), "Card created successfully", Toast.LENGTH_SHORT).show();
-                    isLoading = false;
-                    hideProgressBar();
+                    Toast.makeText(requireContext(), "Expense added successfully!", Toast.LENGTH_SHORT).show();
+                    clearInputFields();
                     if (homeActivity != null) {
                         homeActivity.binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
                     }
                 }
+                resetLoading();
             }
 
             @Override
             public void onError(String errorMessage) {
-                if (isAdded() && getContext() != null) {
-                    Toast.makeText(requireContext(), errorMessage != null ? errorMessage : "Unknown error", Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), errorMessage != null ? errorMessage : "Failed to add expense", Toast.LENGTH_SHORT).show();
                 }
+                resetLoading();
             }
         });
+    }
+
+    private void resetLoading() {
+        isLoading = false;
+        if (isAdded()) {
+            ((HomeActivity) requireActivity()).hideProgressBar();
+        }
+    }
+
+    private void clearInputFields() {
+        binding.etAmount.setText("");
+        binding.etRemark.setText("");
+        binding.radioGroup.clearCheck();
+        binding.spinnerCategory.setSelection(0);
     }
 
     private void getUsernameFromDatabase(String userID) {
@@ -132,7 +176,7 @@ public class AddExpenseFragment extends Fragment {
                     if (username != null) {
                         binding.username.setText(username);
                         isLoading = false;
-                        hideProgressBar();
+                        ((HomeActivity) requireActivity()).hideProgressBar();
                     }
                 }
             }
@@ -141,13 +185,5 @@ public class AddExpenseFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-    }
-
-    private void showProgressBar() {
-        binding.loadingBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        binding.loadingBar.setVisibility(View.GONE);
     }
 }

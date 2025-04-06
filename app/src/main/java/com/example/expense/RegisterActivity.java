@@ -6,9 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.expense.model.User;
@@ -16,13 +17,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername, etEmail, etPassword, etConfirmPassword;
-    private ProgressBar loadingBar;
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
+    private RelativeLayout loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void saveUserToDatabase(String userId, String username, String email) {
-
         User newUser = new User(userId, username, email);
 
         usersRef.child(userId).setValue(newUser)
@@ -103,9 +104,8 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegisterActivity.this, LogInActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Failed to save user data!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Failed to save your data!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 }

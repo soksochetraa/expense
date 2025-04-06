@@ -1,6 +1,7 @@
 package com.example.expense.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -41,9 +42,7 @@ public class HomeFragment extends Fragment {
     int currentPage = 1;
     boolean isLoading = false;
     FirebaseAuth mAuth;
-    String latestCardId; // Declare this globally
-
-    HomeActivity homeActivity;
+    String latestCardId;
 
     public HomeFragment() {
     }
@@ -60,6 +59,10 @@ public class HomeFragment extends Fragment {
             getUsernameFromDatabase(userID);
         }
 
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        binding.tvSeeAll.setVisibility(View.GONE);
+        binding.error.setVisibility(View.GONE);
         binding.rcvSomeOtherExpense.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvSomeOtherExpense.setNestedScrollingEnabled(false);
         cardRepository = new CardRepository();
@@ -67,16 +70,25 @@ public class HomeFragment extends Fragment {
         binding.rcvSomeOtherExpense.setAdapter(cardAdapter);
         loadLatestCard();
 
+        binding.btnAddExpenseNow.setOnClickListener(v->{
+            if (homeActivity != null) {
+                homeActivity.binding.bottomNavigation.setSelectedItemId(R.id.nav_add);
+            }
+        });
+
         binding.setting.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getContext(), LogInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            getActivity().finish();
+
+            Activity activity = getActivity();
+            if (activity != null) {
+                activity.finish();
+            }
         });
 
         binding.tvSeeAll.setOnClickListener(v -> {
-            HomeActivity homeActivity = (HomeActivity) getActivity();
             if (homeActivity != null) {
                 homeActivity.binding.bottomNavigation.setSelectedItemId(R.id.nav_detail);
             }
@@ -104,29 +116,29 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((HomeActivity) requireActivity()).showProgressBar();
         currentPage = 1;
         loadLatestCard();
-        loadCards(true);
+        loadCards();
     }
-
     private void loadLatestCard() {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user == null) {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
-            hideProgressBar();
+            ((HomeActivity) requireActivity()).hideProgressBar();
             return;
         }
 
         String currentUserId = user.getUid();
 
-        cardRepository.getCards(1, currentUserId, new IApiCallback<List<Card>>() {
+        cardRepository.getCards(1, currentUserId, new IApiCallback<>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(List<Card> cards) {
                 if (!cards.isEmpty()) {
                     Card latestCard = cards.get(0);
-                    latestCardId = latestCard.getId(); // Store the latest Card ID
+                    latestCardId = latestCard.getId();
 
                     String symbol = "$";
                     if (latestCard.getCurrency().equals("KHR")) {
@@ -138,7 +150,7 @@ public class HomeFragment extends Fragment {
                     binding.tvDateDisplay.setText(formatDate(latestCard.getCreatedDate()));
                 }
                 isLoading = false;
-                hideProgressBar();
+                ((HomeActivity) requireActivity()).hideProgressBar();
             }
 
             @Override
@@ -150,67 +162,78 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadCards(boolean b) {
+    private void loadCards() {
         isLoading = true;
-        showProgressBar();
+        ((HomeActivity) requireActivity()).showProgressBar();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
-            hideProgressBar();
+            ((HomeActivity) requireActivity()).hideProgressBar();
             return;
         }
+
         String currentUserId = user.getUid();
-        cardRepository.getCards(currentPage, currentUserId, new IApiCallback<List<Card>>() {
+        cardRepository.getCards(currentPage, currentUserId, new IApiCallback<>() {
             @Override
             public void onSuccess(List<Card> cards) {
                 if (!cards.isEmpty()) {
-                    if (b) {
-                        cardAdapter.setCards(cards);
-                    } else {
-                        cardAdapter.addCards(cards);
-                    }
+                    cardAdapter.setCards(cards);
                     currentPage++;
+                    binding.error.setVisibility(View.GONE);
+                    binding.tvSeeAll.setVisibility(View.VISIBLE);
+                } else {
+                    binding.error.setVisibility(View.VISIBLE);
                 }
                 isLoading = false;
-                hideProgressBar();
+                ((HomeActivity) requireActivity()).hideProgressBar();
             }
 
             @Override
             public void onError(String errorMessage) {
                 if (isAdded()) {
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No cards available", Toast.LENGTH_SHORT).show();
                 }
+                binding.tvSeeAll.setVisibility(View.GONE);
                 isLoading = false;
-                hideProgressBar();
+                ((HomeActivity) requireActivity()).hideProgressBar();
             }
         });
     }
 
+
+    private static final String TAG = "HomeFragment";
+
     private String formatDate(String createdDate) {
         try {
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            @SuppressLint("SimpleDateFormat")
             SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             Date date = inputFormat.parse(createdDate);
+
+            assert date != null;
             return outputFormat.format(date);
+
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Date parsing failed for input: " + createdDate, e);
             return createdDate;
         }
     }
+
 
     private void getUsernameFromDatabase(String userID) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("Users").child(userID);
 
-        Log.d("FirebaseDebug", "Fetching data for user: " + userID);
-
         userRef.child("username").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!isAdded() || binding == null) return;
+
                 if (dataSnapshot.exists()) {
                     String username = dataSnapshot.getValue(String.class);
-
                     if (username != null) {
                         binding.username.setText(username);
                     }
@@ -219,16 +242,10 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseError", "Failed to fetch username: " + databaseError.getMessage());
             }
         });
     }
 
-    private void showProgressBar() {
-        binding.loadingBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        binding.loadingBar.setVisibility(View.GONE);
-    }
 }
 

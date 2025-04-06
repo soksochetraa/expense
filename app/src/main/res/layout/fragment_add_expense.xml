@@ -211,16 +211,37 @@
             android:text="@string/label_add_expense"/>
     
     </LinearLayout>
-    <ProgressBar
+    <RelativeLayout
         android:id="@+id/loading_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:visibility="gone"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="#80000000">
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/card_latest_expense_bg">
+            <ProgressBar
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:elevation="1dp"
+                android:visibility="visible"
+                android:indeterminateTint="@color/white"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_medium"
+                android:gravity="center"
+                android:text="@string/loading"
+                android:textColor="@color/white"
+                android:layout_marginTop="140dp"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 </FrameLayout>

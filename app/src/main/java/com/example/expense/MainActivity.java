@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, WelcomeActivity.class));
                 finish();
             }
-        }, 2000);
+        }, 1500);
     }
 }

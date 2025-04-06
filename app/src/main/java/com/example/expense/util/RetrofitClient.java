@@ -14,7 +14,6 @@ public class RetrofitClient {
     private static String baseUrl = "https://expense-tracker-db-kbxp.onrender.com/";
     private static String dbName = "54373606-c3b7-4c0e-a954-6ffe5ce6af2d";
 
-    // Setters for configuration
     public static void setBaseUrl(String url) {
         baseUrl = url;
         retrofit = null;

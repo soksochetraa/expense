@@ -1,12 +1,7 @@
 package com.example.expense;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +16,6 @@ public class DetailActivity extends AppCompatActivity {
     CardRepository cardRepository;
 
 
-    boolean isLoading = false;
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +25,7 @@ public class DetailActivity extends AppCompatActivity {
 
         cardRepository = new CardRepository();
         String cardId = getIntent().getStringExtra("CardId");
-        cardRepository.getCard(String.valueOf(cardId), new IApiCallback<Card>() {
+        cardRepository.getCard(String.valueOf(cardId), new IApiCallback<>() {
             @Override
             public void onSuccess(Card card) {
                 String currency = "$";
@@ -45,49 +38,11 @@ public class DetailActivity extends AppCompatActivity {
                 binding.tvRemark.setText(card.getRemark());
             }
 
-
             @Override
             public void onError(String errorMessage) {
                 binding.tvAmount.setText("Error loading data");
             }
         });
-
-        binding.delete.setOnClickListener(view -> {
-            if (cardId == null) {
-                Toast.makeText(view.getContext(), "Card ID is missing", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            isLoading = true;
-            showProgressBar();
-
-            cardRepository.deleteCard(cardId, new IApiCallback<String>() {
-                @Override
-                public void onSuccess(String message) {
-                    isLoading = false;
-                    hideProgressBar();
-                    Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
-                    onBackPressed();
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    isLoading = false;
-                    hideProgressBar();
-                    Toast.makeText(view.getContext(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
-
         binding.backButton.setOnClickListener(view -> onBackPressed());
-    }
-
-    private void showProgressBar() {
-        binding.loadingBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressBar() {
-        binding.loadingBar.setVisibility(View.GONE);
     }
 }
