@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">expense</string>
+
+    <!-- Fragment Home -->
+    <string name="good_afternoon">Good Afternoon,</string>
+    <string name="username">USERNAME</string>
+    <string name="button_settings">Button Settings</string>
+    <string name="latest_view">Latest View</string>
+    <string name="amount">NONE</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="entertainment">NONE</string>
+    <string name="latest_expense">Latest Expense</string>
+    <string name="_19_12_2025">NONE</string>
+    <string name="other_expense">Other Expenses</string>
+    <string name="see_all">See All</string>
+
+    <!-- Fragment Add Expense -->
+    <string name="add_new_expense">Add\nNew Expense</string>
+    <string name="label_crate_date">Crate Date</string>
+    <string name="dd_mm_yyyy">DD - MM - YYYY</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_khr">KHR</string>
+    <string name="label_usd">USD</string>
+    <string name="select_category">Select Category</string>
+    <string name="label_category">Category</string>
+    <array name="categories">
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Shopping</item>
+        <item>Entertainment</item>
+        <item>Utilities</item>
+        <item>Health</item>
+        <item>Education</item>
+        <item>Other</item>
+    </array>
+    <string name="button_add_category">Button Add Category</string>
+    <string name="label_remark">Remark</string>
+    <string name="label_add_expense">Add Expense</string>
+
+    <!-- Card Expense -->
+    <string name="des_dollar_symbol">Dollar Symbol</string>
+    <string name="tv_view_expense_list">View\nExpense List</string>
+    <string name="all_expense">All Expense List</string>
+    <string name="todo">TODO</string>
+    <string name="spend_smarter_n_save_more">Spend Smarter\n Save More</string>
+    <string name="get_start">Get Start</string>
+    <string name="welcome_back_glad_to_see_you_again">Welcome back! Glad to see you, Again!</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="log_in">Log In</string>
+    <string name="or_login_with">Or Login with</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="register_now">Register Now</string>
+    <string name="register">Register</string>
+    <string name="or_register_with">or register with</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="hello_register_to_get_started">Hello! Register to get started</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="transaction_details">Expense Details</string>
+    <string name="expense_details">Expense details</string>
+    <string name="other_information">Other information :</string>
+    <string name="hidden" />
+</resources>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf8"
+    tools:context=".fragment.AddExpenseFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/bg_header">
+
+        <LinearLayout
+            android:id="@+id/header_greeting_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_add_new_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="46sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="@string/add_new_expense"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/setting"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/bg_setting_btn"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/button_settings"
+                android:src="@drawable/ico_setting" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/input_form_container"
+        android:layout_width="366dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="205dp">
+
+        <TextView
+            android:id="@+id/tv_label_for_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/urbanist_medium"
+            android:text="@string/label_amount"
+            android:textColor="#8391A1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            style="@style/EditTextHintStyle"
+            android:hint="@string/label_amount"
+            android:layout_marginTop="5dp"
+            android:inputType="numberDecimal"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:autofillHints=""
+            android:background="@drawable/et_bg" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonUSD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_usd"
+                android:fontFamily="@font/urbanist_medium"
+                android:textColor="#8391A1"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/radio_button_selector"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonKHR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/label_khr"
+                android:fontFamily="@font/urbanist_medium"
+                android:textColor="#8391A1"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:buttonTint="@color/radio_button_selector"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_label_for_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/urbanist_medium"
+            android:text="@string/label_category"
+            android:textColor="#8391A1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hidden"
+                android:background="@drawable/et_bg"
+                app:endIconMode="dropdown_menu"
+                app:hintAnimationEnabled="false">
+
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:entries="@array/categories"/>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:background="@drawable/et_bg">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/button_add_category"
+                    android:src="@drawable/ico_plus"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_label_for_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/urbanist_medium"
+            android:text="@string/label_remark"
+            android:textColor="#8391A1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            style="@style/EditTextHintStyle"
+            android:hint="@string/label_remark"
+            android:layout_marginTop="5dp"
+            android:inputType="textImeMultiLine"
+            android:padding="18dp"
+            android:autofillHints=""
+            android:gravity="top"
+            android:background="@drawable/et_bg" />
+
+        <Button
+            android:id="@+id/btn_add_expense"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            style="@style/EditTextHintStyle"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_bg"
+            android:text="@string/label_add_expense"/>
+    
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</FrameLayout>
