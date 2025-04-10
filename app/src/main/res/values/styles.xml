@@ -2,7 +2,7 @@
 <resources>
     <style name="EditTextHintStyle">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColorHint">#8391A1</item>
+        <item name="android:textColorHint">?attr/colorTertiary</item>
         <item name="android:fontFamily">@font/urbanist_medium</item>
     </style>
 </resources>

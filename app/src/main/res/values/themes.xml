@@ -1,8 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
         <item name="colorPrimary">#48908B</item>
+        <item name="colorOnBackground">#fbfcf8</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <!-- Et Bg -->
+        <item name="colorBackgroundFloating">#F7F8F9</item>
+        <item name="colorOutline">#E8ECF4</item>
+
+        <!-- Text -->
+        <item name="colorAccent">#121212</item>
+
+        <!-- Bg Dollar -->
+        <item name="colorOnTertiary">#F0F7F5</item>
+
+        <!-- Color Hint -->
+        <item name="colorTertiary">#6A707C</item>
+
     </style>
 
     <style name="Theme.Expense" parent="Base.Theme.Expense" />

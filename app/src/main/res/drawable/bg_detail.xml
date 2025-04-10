@@ -7,7 +7,7 @@
     tools:ignore="VectorRaster">
 
   <path
-      android:fillColor="#FFFFFF"
+      android:fillColor="?attr/colorBackgroundFloating"
       android:pathData="M30,0
                          h432
                          a30,30 0 0 1 30,30

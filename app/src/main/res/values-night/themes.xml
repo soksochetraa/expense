@@ -1,7 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
+    <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">\
         <item name="colorPrimary">#48908B</item>
+        <item name="colorOnBackground">#121212</item>
+        <item name="colorOnSurface">#121212</item>
+
+        <!-- Et Bg -->
+        <item name="colorBackgroundFloating">#1e1e1e</item>
+        <item name="colorOutline">#3C3F41</item>
+
+        <!-- Text -->
+        <item name="colorAccent">#FFFFFF</item>
+
+        <!-- Bg Dollar -->
+        <item name="colorOnTertiary">#1e1e1e</item>
+
+        <!-- Color Hint -->
+        <item name="colorTertiary">#FFFFFF</item>
     </style>
 </resources>

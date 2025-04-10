@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorOnBackground"
     android:layout_marginHorizontal="20dp"
     android:layout_marginBottom="20dp">
 
@@ -28,7 +29,7 @@
         android:id="@+id/foreground_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fbfcf8">
+        android:background="?attr/colorOnBackground">
 
     <LinearLayout
         android:layout_width="match_parent"

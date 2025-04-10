@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfcf8"
+    android:background="?attr/colorOnBackground"
     tools:context=".fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:contentDescription="@string/button_settings"
-                    android:src="@drawable/ico_setting" />
+                    android:src="@drawable/ico_sign_out" />
             </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -243,6 +243,7 @@
                 android:background="@drawable/btn_bg"
                 android:fontFamily="@font/urbanist_medium"
                 android:text="@string/add_expense_now"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_marginTop="25dp"

@@ -32,7 +32,9 @@ public class HomeActivity extends AppCompatActivity {
                 LoadFragment(new AddExpenseFragment());
             } else if (itemId == R.id.nav_detail) {
                 LoadFragment(new ExpenseListFragment());
-            } else {
+            } else if (itemId == R.id.nav_setting) {
+                LoadFragment(new SettingFragment());
+            }else {
                 return false;
             }
             return true;

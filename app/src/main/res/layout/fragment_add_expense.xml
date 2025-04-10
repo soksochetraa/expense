@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfcf8"
+    android:background="?attr/colorOnBackground"
     tools:context=".fragment.AddExpenseFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:contentDescription="@string/button_settings"
-                android:src="@drawable/ico_setting" />
+                android:src="@drawable/ico_sign_out" />
         </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,7 +78,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/urbanist_medium"
             android:text="@string/label_amount"
-            android:textColor="#8391A1"
+            android:textColor="?attr/colorTertiary"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_usd"
                 android:fontFamily="@font/urbanist_medium"
-                android:textColor="#8391A1"
+                android:textColor="?attr/colorTertiary"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:buttonTint="@color/radio_button_selector"/>
@@ -120,7 +120,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/label_khr"
                 android:fontFamily="@font/urbanist_medium"
-                android:textColor="#8391A1"
+                android:textColor="?attr/colorTertiary"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:buttonTint="@color/radio_button_selector"/>
@@ -133,7 +133,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/urbanist_medium"
             android:text="@string/label_category"
-            android:textColor="#8391A1"
+            android:textColor="?attr/colorTertiary"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -184,7 +184,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/urbanist_medium"
             android:text="@string/label_remark"
-            android:textColor="#8391A1"
+            android:textColor="?attr/colorTertiary"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -207,6 +207,7 @@
             android:layout_height="62dp"
             style="@style/EditTextHintStyle"
             android:layout_marginTop="25dp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_bg"
             android:text="@string/label_add_expense"/>
     

@@ -15,6 +15,6 @@
     <path
         android:pathData="M0.5 0.5H112.5H0.5Z"
         android:strokeWidth="1"
-        android:strokeColor="#6A707C"
+        android:strokeColor="?attr/colorTertiary"
         />
 </vector>

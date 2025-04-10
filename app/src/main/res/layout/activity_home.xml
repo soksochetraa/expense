@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+   android:background="?attr/colorOnBackground"
     tools:context=".HomeActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,7 +20,7 @@
         app:labelVisibilityMode="unlabeled"
         android:background="@drawable/nav_bg"
         app:menu="@menu/navigation_bottom_menu"
-        app:itemActiveIndicatorStyle="@color/white"
+        app:itemActiveIndicatorStyle="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

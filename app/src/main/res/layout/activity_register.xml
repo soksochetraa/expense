@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="#fbfcf8"
+    android:background="?attr/colorOnBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
@@ -15,7 +15,7 @@
         android:fontFamily="@font/urbanist_medium"
         android:gravity="start"
         android:text="@string/hello_register_to_get_started"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorAccent"
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginTop="127dp"
@@ -125,6 +125,7 @@
         android:text="@string/register"
         android:textSize="15sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +153,7 @@
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/urbanist_medium"
             android:text="@string/or_register_with"
-            android:textColor="#6A707C"
+            android:textColor="?attr/colorTertiary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -226,7 +227,7 @@
         android:layout_marginStart="76dp"
         android:fontFamily="@font/urbanist_medium"
         android:text="@string/dont_have_account"
-        android:textColor="#6A707C"
+        android:textColor="?attr/colorTertiary"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
