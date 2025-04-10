@@ -28,6 +28,7 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/preahvihear"
                 android:text="@string/username"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -38,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="46sp"
+                android:fontFamily="@font/preahvihear"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:text="@string/tv_view_expense_list"/>
@@ -69,6 +71,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="215dp"
         android:text="@string/all_expense"
+        android:fontFamily="@font/preahvihear"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -111,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_expenses_yet_let_s_add_your_first_one"
                 android:gravity="center"
+                android:fontFamily="@font/preahvihear"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#438883"/>
@@ -120,7 +124,7 @@
                 android:layout_width="331dp"
                 android:layout_height="62dp"
                 android:background="@drawable/btn_bg"
-                android:fontFamily="@font/urbanist_medium"
+                android:fontFamily="@font/preahvihear"
                 android:text="@string/add_expense_now"
                 android:textSize="15sp"
                 android:textStyle="bold"

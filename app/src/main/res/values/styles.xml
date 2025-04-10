@@ -1,36 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- Base application theme -->
-    <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">#48908B</item>
-        <item name="colorOnBackground">#fbfcf8</item>
-        <item name="colorOnSurface">#FFFFFF</item>
-
-        <!-- EditText Background -->
-        <item name="colorBackgroundFloating">#F7F8F9</item>
-        <item name="colorOutline">#E8ECF4</item>
-
-        <!-- Text -->
-        <item name="colorAccent">#121212</item>
-
-        <!-- Card Background or Dollar Background -->
-        <item name="colorOnTertiary">#F0F7F5</item>
-
-        <!-- Hint Text -->
-        <item name="colorTertiary">#6A707C</item>
-    </style>
-
-    <!-- Final App Theme -->
-    <style name="Theme.Expense" parent="Base.Theme.Expense">
-        <item name="android:fontFamily">@font/urbanist_medium</item>
-    </style>
-
-    <!-- EditText hint style -->
+<resources>
     <style name="EditTextHintStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textColorHint">?attr/colorTertiary</item>
-        <item name="android:fontFamily">@font/urbanist_medium</item>
+        <item name="android:fontFamily">@font/preahvihear</item>
     </style>
-
 </resources>

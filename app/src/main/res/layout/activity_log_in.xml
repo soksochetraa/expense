@@ -17,6 +17,7 @@
         android:textColor="?attr/colorAccent"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:fontFamily="@font/preahvihear"
         android:layout_marginTop="127dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +64,8 @@
             android:text="@string/forgot_password"
             android:textColor="?attr/colorTertiary"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/preahvihear" />
     </LinearLayout>
 
     <RelativeLayout
@@ -74,22 +76,25 @@
         android:visibility="gone"
         android:gravity="center"
         android:background="#80000000">
+
         <RelativeLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:gravity="center_horizontal"
             android:background="@drawable/card_latest_expense_bg">
+
             <ProgressBar
                 android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:elevation="1dp"
                 android:visibility="visible"
-                android:indeterminateTint="@color/white"/>
+                android:indeterminateTint="@color/white" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/urbanist_medium"
+                android:fontFamily="@font/preahvihear"
                 android:gravity="center"
                 android:text="@string/loading"
                 android:textColor="@color/white"
@@ -104,7 +109,7 @@
         android:layout_width="331dp"
         android:layout_height="62dp"
         android:background="@drawable/btn_bg"
-        android:fontFamily="@font/urbanist_medium"
+        android:fontFamily="@font/preahvihear"
         android:text="@string/log_in"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -137,7 +142,8 @@
             android:text="@string/or_login_with"
             android:textColor="?attr/colorTertiary"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/preahvihear" />
 
         <View
             android:layout_width="112dp"
@@ -211,6 +217,7 @@
         android:textColor="?attr/colorTertiary"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:fontFamily="@font/preahvihear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.105"
@@ -226,6 +233,7 @@
         android:textColor="#529C97"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:fontFamily="@font/preahvihear"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />

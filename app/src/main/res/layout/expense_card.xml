@@ -63,6 +63,7 @@
                 android:id="@+id/tv_category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/preahvihear"
                 android:text="@string/entertainment"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -72,6 +73,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@string/_19_12_2025"
+                android:fontFamily="@font/preahvihear"
                 android:textSize="13sp"
                 android:textColor="#666666"
                 android:textStyle="bold" />
@@ -87,6 +89,7 @@
                 android:id="@+id/tv_amount_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/preahvihear"
                 android:layout_marginEnd="10dp"
                 android:text="@string/amount"
                 android:textSize="24sp"
