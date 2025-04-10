@@ -18,6 +18,7 @@
         <!-- Color Hint -->
         <item name="colorTertiary">#6A707C</item>
 
+
     </style>
 
     <style name="Theme.Expense" parent="Base.Theme.Expense" />
