@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme -->
+    <!-- Base night + English theme -->
     <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#48908B</item>
-        <item name="colorOnBackground">#fbfcf8</item>
-        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="colorOnBackground">#121212</item>
+        <item name="colorOnSurface">#121212</item>
 
         <!-- EditText Background -->
-        <item name="colorBackgroundFloating">#F7F8F9</item>
-        <item name="colorOutline">#E8ECF4</item>
+        <item name="colorBackgroundFloating">#1e1e1e</item>
+        <item name="colorOutline">#3C3F41</item>
 
-        <!-- Text -->
-        <item name="colorAccent">#121212</item>
+        <!-- Main Text -->
+        <item name="colorAccent">#FFFFFF</item>
 
-        <!-- Card Background or Dollar Background -->
-        <item name="colorOnTertiary">#F0F7F5</item>
+        <!-- Card Background / Dollar -->
+        <item name="colorOnTertiary">#1e1e1e</item>
 
         <!-- Hint Text -->
-        <item name="colorTertiary">#6A707C</item>
+        <item name="colorTertiary">#FFFFFF</item>
     </style>
 
-    <!-- Final App Theme -->
     <style name="Theme.Expense" parent="Base.Theme.Expense">
         <item name="android:fontFamily">@font/urbanist_medium</item>
     </style>
 
-    <!-- EditText hint style -->
     <style name="EditTextHintStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textColorHint">?attr/colorTertiary</item>

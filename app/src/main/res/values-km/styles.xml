@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Font -->
+        <item name="android:fontFamily">@font/preahvihear</item>
+
+        <!-- Reapply your colors -->
+        <item name="colorPrimary">#48908B</item>
+        <item name="colorOnBackground">#fbfcf8</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <!-- Et Bg -->
+        <item name="colorBackgroundFloating">#F7F8F9</item>
+        <item name="colorOutline">#E8ECF4</item>
+
+        <!-- Text -->
+        <item name="colorAccent">#121212</item>
+
+        <!-- Bg Dollar -->
+        <item name="colorOnTertiary">#F0F7F5</item>
+
+        <!-- Color Hint -->
+        <item name="colorTertiary">#6A707C</item>
+    </style>
+
+    <resources>
+        <style name="EditTextHintStyle">
+            <item name="android:textSize">15sp</item>
+            <item name="android:textColorHint">?attr/colorTertiary</item>
+            <item name="android:fontFamily">@font/preahvihear</item>
+        </style>
+    </resources>
+
+
+    <style name="Theme.Expense" parent="Base.Theme.Expense" />
+</resources>
+
+

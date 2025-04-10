@@ -58,6 +58,4 @@
     <string name="no_expenses_yet_let_s_add_your_first_one">No expenses yet!\nLet\'s add your first one</string>
     <string name="add_expense_now">Add Expense Now</string>
     <string name="loading">Loading…</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

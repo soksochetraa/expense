@@ -69,7 +69,6 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="215dp"
         android:text="@string/all_expense"
-        android:fontFamily="@font/urbanist_medium"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold" />

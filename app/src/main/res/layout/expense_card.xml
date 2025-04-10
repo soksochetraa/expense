@@ -65,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/entertainment"
                 android:textSize="16sp"
-                android:fontFamily="@font/urbanist_medium"
                 android:textStyle="bold" />
 
             <TextView
@@ -75,7 +74,6 @@
                 android:text="@string/_19_12_2025"
                 android:textSize="13sp"
                 android:textColor="#666666"
-                android:fontFamily="@font/urbanist_medium"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -93,7 +91,6 @@
                 android:text="@string/amount"
                 android:textSize="24sp"
                 android:textColor="#25A969"
-                android:fontFamily="@font/urbanist_medium"
                 android:textStyle="bold" />
 
             <RelativeLayout

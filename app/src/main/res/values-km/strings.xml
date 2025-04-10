@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ចំណាយ</string>
+    <string name="good_afternoon">សួស្តីរ!</string>
+    <string name="username">ឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="button_settings">ការកំណត់ប៊ូតុង</string>
+    <string name="latest_view">មើលចុងក្រោយ</string>
+    <string name="amount">មិនមាន</string>
+    <string name="category">ប្រភេទ</string>
+    <string name="date">កាលបរិច្ឆេទ</string>
+    <string name="entertainment">មិនមាន</string>
+    <string name="latest_expense">ចំណាយចុងក្រោយ</string>
+    <string name="_19_12_2025">មិនមាន</string>
+    <string name="other_expense">ចំណាយផ្សេងទៀត</string>
+    <string name="see_all">មើលទាំងអស់</string>
+    <string name="add_new_expense">បន្ថែមចំណាយថ្មី</string>
+    <string name="label_crate_date">កាលបរិច្ឆេទបង្កើត</string>
+    <string name="dd_mm_yyyy">ថ្ងៃ - ខែ - ឆ្នាំ</string>
+    <string name="label_amount">ចំនួនទឹកប្រាក់</string>
+    <string name="label_khr">រៀល</string>
+    <string name="label_usd">ដុល្លារ</string>
+    <string name="select_category">ជ្រើសរើសប្រភេទ</string>
+    <string name="label_category">ប្រភេទ</string>
+    <array name="categories">
+        <item>អាហារ</item>
+        <item>ការដឹកជញ្ជូន</item>
+        <item>ការជាវទំនិញ</item>
+        <item>ការកម្សាន្ត</item>
+        <item>សេវាឧបភោគ</item>
+        <item>សុខភាព</item>
+        <item>ការអប់រំ</item>
+        <item>ផ្សេងៗ</item>
+    </array>
+    <string name="button_add_category">បន្ថែមប្រភេទ</string>
+    <string name="label_remark">ចំណាំ</string>
+    <string name="label_add_expense">បន្ថែមចំណាយ</string>
+    <string name="des_dollar_symbol">និមិត្តសញ្ញាដុល្លារ</string>
+    <string name="tv_view_expense_list">មើលបញ្ជីចំណាយ</string>
+    <string name="all_expense">បញ្ជីចំណាយទាំងអស់</string>
+    <string name="todo">ត្រូវធ្វើ</string>
+    <string name="spend_smarter_n_save_more">ចំណាយដោយ\n ការទទួលខុសត្រូវ</string>
+    <string name="get_start">ចាប់ផ្តើម</string>
+    <string name="welcome_back_glad_to_see_you_again">សូមស្វាគមន៍! រីករាយដែលបានជួបអ្នកម្តងទៀត!</string>
+    <string name="enter_your_email">បញ្ចូលអ៊ីមែលរបស់អ្នក</string>
+    <string name="enter_your_password">បញ្ចូលពាក្យសម្ងាត់របស់អ្នក</string>
+    <string name="forgot_password">ភ្លេចពាក្យសម្ងាត់?</string>
+    <string name="log_in">ចូល</string>
+    <string name="or_login_with">ឬចូលដោយប្រើ</string>
+    <string name="dont_have_account">មិនទាន់មានគណនី?</string>
+    <string name="register_now">ចុះឈ្មោះឥឡូវនេះ</string>
+    <string name="register">ចុះឈ្មោះ</string>
+    <string name="or_register_with">ឬចុះឈ្មោះដោយ</string>
+    <string name="enter_your_username">បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់</string>
+    <string name="hello_register_to_get_started">សួស្តី! ចុះឈ្មោះដើម្បីចាប់ផ្តើម</string>
+    <string name="transaction_details">ព័ត៌មានលម្អិត</string>
+    <string name="expense_details">ព័ត៌មានលម្អិត</string>
+    <string name="other_information">ព័ត៌មានផ្សេងទៀត :</string>
+    <string name="hidden" />
+    <string name="no_expenses_yet_let_s_add_your_first_one">អ្នកមិនទាន់មានចំណាយទេ!\nតោះ! សាកបង្កើតថ្មីមួយ</string>
+    <string name="add_expense_now">បន្ថែមចំណាយឥឡូវនេះ</string>
+    <string name="loading">កំពុងផ្ទុក…</string>
+    <string name="hello_blank_fragment">សួស្តី Blank Fragment</string>
+</resources>

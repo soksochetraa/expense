@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Khmer font override -->
+        <item name="android:fontFamily">@font/preahvihear</item>
+
+        <!-- Dark theme colors -->
+        <item name="colorPrimary">#48908B</item>
+        <item name="colorOnBackground">#121212</item>
+        <item name="colorOnSurface">#121212</item>
+
+        <item name="colorBackgroundFloating">#1e1e1e</item>
+        <item name="colorOutline">#3C3F41</item>
+
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorOnTertiary">#1e1e1e</item>
+        <item name="colorTertiary">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.Expense" parent="Base.Theme.Expense" />
+</resources>
