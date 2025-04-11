@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ចំណាយ</string>
+    <string name="app_name">expense</string>
     <string name="good_afternoon">សួស្តីរ!</string>
     <string name="username">ឈ្មោះអ្នកប្រើប្រាស់</string>
     <string name="button_settings">ការកំណត់ប៊ូតុង</string>
@@ -21,16 +21,6 @@
     <string name="label_usd">ដុល្លារ</string>
     <string name="select_category">ជ្រើសរើសប្រភេទ</string>
     <string name="label_category">ប្រភេទ</string>
-    <array name="categories">
-        <item>អាហារ</item>
-        <item>ការដឹកជញ្ជូន</item>
-        <item>ការជាវទំនិញ</item>
-        <item>ការកម្សាន្ត</item>
-        <item>សេវាឧបភោគ</item>
-        <item>សុខភាព</item>
-        <item>ការអប់រំ</item>
-        <item>ផ្សេងៗ</item>
-    </array>
     <string name="button_add_category">បន្ថែមប្រភេទ</string>
     <string name="label_remark">ចំណាំ</string>
     <string name="label_add_expense">បន្ថែមចំណាយ</string>

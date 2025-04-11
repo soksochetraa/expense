@@ -20,16 +20,6 @@
     <string name="label_usd">USD</string>
     <string name="select_category">Select Category</string>
     <string name="label_category">Category</string>
-    <array name="categories">
-        <item>Food</item>
-        <item>Transport</item>
-        <item>Shopping</item>
-        <item>Entertainment</item>
-        <item>Utilities</item>
-        <item>Health</item>
-        <item>Education</item>
-        <item>Other</item>
-    </array>
     <string name="button_add_category">Button Add Category</string>
     <string name="label_remark">Remark</string>
     <string name="label_add_expense">Add Expense</string>
