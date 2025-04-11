@@ -2,10 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Expense" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="android:windowSplashScreenAnimatedIcon">@null</item>
-        <item name="android:windowSplashScreenIcon">@null</item>
-        <item name="android:windowSplashScreenBackground">?android:colorBackground</item>
-
         <item name="colorPrimary">#48908B</item>
         <item name="colorOnBackground">#fbfcf8</item>
         <item name="colorOnSurface">#FFFFFF</item>

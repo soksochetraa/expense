@@ -59,4 +59,6 @@
     <string name="no_expenses_yet_let_s_add_your_first_one">អ្នកមិនទាន់មានចំណាយទេ!\nតោះ! សាកបង្កើតថ្មីមួយ</string>
     <string name="add_expense_now">បន្ថែមចំណាយឥឡូវនេះ</string>
     <string name="loading">កំពុងផ្ទុក…</string>
+    <string name="add_category">បន្ថែមប្រភេទថ្មី</string>
+    <string name="enter_new_category">បញ្ចូលប្រភេទថ្មី</string>
 </resources>

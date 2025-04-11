@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler.v250)
     implementation (libs.preference)
     implementation(libs.gson)
     implementation (libs.retrofit)

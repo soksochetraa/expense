@@ -14,6 +14,9 @@ firebaseAuth = "23.2.0"
 preference = "1.2.1"
 retrofit = "2.11.0"
 firebaseDatabase = "21.0.0"
+roomCompiler = "2.7.0"
+roomCompilerVersion = "2.7.0"
+roomRuntime = "2.7.0"
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
@@ -30,6 +33,9 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 preference = { module = "androidx.preference:preference", version.ref = "preference" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+room-compiler-v250 = { module = "androidx.room:room-compiler", version.ref = "roomCompilerVersion" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
