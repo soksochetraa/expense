@@ -8,14 +8,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.expense.databinding.ActivityLogInBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends BaseActivity {
 
     private ActivityLogInBinding binding;
     private FirebaseAuth mAuth;

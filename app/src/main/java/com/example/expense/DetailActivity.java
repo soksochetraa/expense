@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.expense.databinding.ActivityDetailBinding;
 import com.example.expense.model.Card;
 import com.example.expense.repository.CardRepository;
 import com.example.expense.repository.IApiCallback;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     ActivityDetailBinding binding;
     CardRepository cardRepository;

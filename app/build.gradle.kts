@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.preference)
     implementation(libs.gson)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
