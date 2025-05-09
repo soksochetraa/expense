@@ -51,4 +51,7 @@
     <string name="loading">កំពុងផ្ទុក…</string>
     <string name="add_category">បន្ថែមប្រភេទថ្មី</string>
     <string name="enter_new_category">បញ្ចូលប្រភេទថ្មី</string>
+    <string name="damn_you_forget_your_password">ចុមយក្ស!! ភ្លេចលេខសម្ងាត់</string>
+    <string name="reset_password">ភ្លេចលេខសម្ងាត់</string>
+    <string name="add_receipt">បន្ថែមវិត័យបត្រ</string>
 </resources>
