@@ -34,14 +34,18 @@ public class Card {
     @JsonAdapter(ISO8601DateAdapter.class)
     private Date createdDate = new Date();
 
-    public Card(String id, double amount, String currency, String category, String remark, String createdBy, Date createdDate) {
+    @SerializedName("imageUrl")
+    private String imageUrl = "";
+
+    public Card(String id, double amount, String currency, String category, String remark, String createdBy, Date createdDate, String imageUrl) {
         this.id = id;
         this.amount = amount;
         this.currency = currency;
         this.category = category;
         this.remark = remark;
         this.createdBy = createdBy;
-        this.createdDate = new Date();
+        this.createdDate = createdDate;
+        this.imageUrl = imageUrl;
     }
 
     public void setId(String id) {
@@ -101,9 +105,17 @@ public class Card {
         return createdDate != null ? sdf.format(createdDate) : "N/A";
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return "Card{id='" + id + "', amount=" + amount + ", currency='" + currency + "', category='" + category + "', remark='" + remark + "', createdBy='" + createdBy + "', createdDate=" + createdDate + "}";
+        return "Card{id='" + id + "', amount=" + amount + ", currency='" + currency + "', category='" + category + "', remark='" + remark + "', createdBy='" + createdBy + "', createdDate=" + createdDate + "', imageUrl='" + imageUrl + "'}";
     }
 }

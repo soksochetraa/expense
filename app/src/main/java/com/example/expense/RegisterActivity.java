@@ -1,5 +1,6 @@
 package com.example.expense;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +25,10 @@ public class RegisterActivity extends BaseActivity {
     private DatabaseReference usersRef;
     private RelativeLayout loadingBar;
 
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,9 @@ public class RegisterActivity extends BaseActivity {
         Button btnRegister = findViewById(R.id.btn_register);
         TextView tvLogin = findViewById(R.id.tv_login);
         loadingBar = findViewById(R.id.loading_bar);
+
+        setupPasswordToggle(etPassword, true);
+        setupPasswordToggle(etConfirmPassword, false);
 
         btnRegister.setOnClickListener(view -> registerUser());
 
@@ -105,5 +113,36 @@ public class RegisterActivity extends BaseActivity {
                         Toast.makeText(RegisterActivity.this, "Failed to save your data!", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupPasswordToggle(EditText editText, boolean isMainPassword) {
+        editText.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_END = 2;
+            if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (editText.getRight() - editText.getCompoundDrawables()[DRAWABLE_END].getBounds().width())) {
+                    if (isMainPassword) {
+                        isPasswordVisible = !isPasswordVisible;
+                        updatePasswordVisibility(editText, isPasswordVisible);
+                    } else {
+                        isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                        updatePasswordVisibility(editText, isConfirmPasswordVisible);
+                    }
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    private void updatePasswordVisibility(EditText editText, boolean visible) {
+        if (visible) {
+            editText.setInputType(android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ico_security, 0, R.drawable.ico_eye_closed, 0);
+        } else {
+            editText.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ico_security, 0, R.drawable.ico_eye_open, 0);
+        }
+        editText.setSelection(editText.getText().length());
     }
 }

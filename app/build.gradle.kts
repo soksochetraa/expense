@@ -36,7 +36,12 @@ android {
 }
 
 dependencies {
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+    implementation (libs.play.services.auth)
     implementation(libs.room.runtime)
+    implementation(libs.firebase.auth.interop)
+    implementation(libs.firebase.storage)
     annotationProcessor(libs.room.compiler.v250)
     implementation (libs.preference)
     implementation(libs.gson)

@@ -1,8 +1,14 @@
 package com.example.expense.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import android.Manifest;
 
 import com.example.expense.AddCategoryActivity;
 import com.example.expense.HomeActivity;
@@ -32,6 +41,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +58,15 @@ public class AddExpenseFragment extends Fragment {
     boolean isLoading = false;
     CategoryDao categoryDao;
 
-    CategoryDatabase categoryDatabase;
+    private static final int REQUEST_CAMERA = 1001;
+    private static final int REQUEST_GALLERY = 1002;
+    private static final int REQUEST_PERMISSIONS = 1003;
+    private static final String[] REQUIRED_PERMISSIONS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+            ? new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES}
+            : new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    private Uri imageUrl;
+    private String uploadedImageUrl = null;
 
     @Nullable
     @Override
@@ -64,10 +83,6 @@ public class AddExpenseFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         cardRepository = new CardRepository();
-
-        CategoryDatabase db = CategoryDatabase.getInstance(getContext());
-        categoryDao = db.categoryDao();
-
         categoryDao = CategoryDatabase.getInstance(requireContext()).categoryDao();
 
         if (categoryDao.getAllCategories().isEmpty()) {
@@ -78,13 +93,10 @@ public class AddExpenseFragment extends Fragment {
         }
 
         loadCategories();
-
         homeActivity = (HomeActivity) getActivity();
-
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            String userID = user.getUid();
-            getUsernameFromDatabase(userID);
+            getUsernameFromDatabase(user.getUid());
         }
 
         binding.setting.setOnClickListener(v -> {
@@ -104,6 +116,20 @@ public class AddExpenseFragment extends Fragment {
         });
 
         binding.btnAddExpense.setOnClickListener(v -> onAddExpenseClicked());
+
+        binding.btnAddImageBefore.setOnClickListener(v -> {
+            if (hasPermissions()) {
+                showImagePickerDialog();
+            } else {
+                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_PERMISSIONS);
+            }
+        });
+
+        binding.btnCancelImage.setOnClickListener(v -> {
+            binding.imagePreviewContainer.setVisibility(View.GONE);
+            binding.btnAddImageBefore.setVisibility(View.VISIBLE);
+            imageUrl = null;
+        });
     }
 
     @Override
@@ -154,8 +180,30 @@ public class AddExpenseFragment extends Fragment {
 
         String id = UUID.randomUUID().toString();
         Date createdDate = new Date();
-        Card card = new Card(id, amount, currency, category, remark, createdBy, createdDate);
+        String imageUrlString = imageUrl != null ? imageUrl.toString() : "";
 
+        Card card = new Card(id, amount, currency, category, remark, createdBy, createdDate, imageUrlString);
+
+        if (imageUrl != null) {
+            String userId = mAuth.getCurrentUser().getUid();
+            StorageReference storageRef = FirebaseStorage.getInstance()
+                    .getReference("receipts/" + userId + "/" + UUID.randomUUID());
+
+            storageRef.putFile(imageUrl)
+                    .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        card.setImageUrl(uri.toString());
+                        uploadCard(card);
+                    }))
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(requireContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        resetLoading();
+                    });
+        } else {
+            uploadCard(card);
+        }
+    }
+
+    private void uploadCard(Card card) {
         cardRepository.createCard(card, new IApiCallback<>() {
             @Override
             public void onSuccess(Card result) {
@@ -191,6 +239,10 @@ public class AddExpenseFragment extends Fragment {
         binding.etRemark.setText("");
         binding.radioGroup.clearCheck();
         binding.spinnerCategory.setSelection(0);
+        binding.imagePreview.setVisibility(View.GONE);
+        binding.btnAddImageBefore.setVisibility(View.VISIBLE);
+        imageUrl = null;
+        uploadedImageUrl = null;
     }
 
     private void getUsernameFromDatabase(String userID) {
@@ -226,5 +278,108 @@ public class AddExpenseFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, names);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerCategory.setAdapter(adapter);
+    }
+
+    private void showImagePickerDialog() {
+        String[] options = {"Take Photo", "Choose from Gallery"};
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Select Image")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        openCamera();
+                    } else {
+                        openGallery();
+                    }
+                })
+                .show();
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, REQUEST_GALLERY);
+    }
+
+    private void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera");
+        imageUrl = requireActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUrl);
+        startActivityForResult(cameraIntent, REQUEST_CAMERA);
+    }
+
+    private boolean hasPermissions() {
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_PERMISSIONS) {
+            boolean allGranted = true;
+            boolean showRationale = false;
+
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                    if (!shouldShowRequestPermissionRationale(permissions[i])) {
+                        showRationale = true;
+                    }
+                }
+            }
+
+            if (allGranted) {
+                showImagePickerDialog();
+            } else if (showRationale) {
+                showPermissionSettingsDialog();
+            } else {
+                Toast.makeText(getContext(), "Permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showPermissionSettingsDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Permission Required")
+                .setMessage("Camera and storage access are needed. Please grant them manually:\n\n" +
+                        "1. Open Settings\n\n" +
+                        "2. Tap Apps\n\n" +
+                        "3. Find this app\n\n" +
+                        "4. Tap Permissions\n\n" +
+                        "5. Enable Camera and Storage")
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", requireContext().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_GALLERY && data != null) {
+                imageUrl = data.getData();
+            }
+
+            if (imageUrl != null) {
+                binding.imagePreview.setImageURI(imageUrl);
+                binding.imagePreviewContainer.setVisibility(View.VISIBLE);
+                binding.btnAddImageBefore.setVisibility(View.GONE);
+            }
+        }
     }
 }

@@ -40,6 +40,8 @@
             android:layout_height="56dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/et_bg"
+            android:drawableStart="@drawable/ico_email"
+            android:drawablePadding="10dp"
             android:hint="@string/enter_your_email"
             android:inputType="textEmailAddress"
             android:paddingHorizontal="10dp" />
@@ -50,8 +52,11 @@
             android:layout_width="331dp"
             android:layout_height="56dp"
             android:layout_marginTop="15dp"
-            android:autofillHints="emailAddress"
+            android:autofillHints="password"
             android:background="@drawable/et_bg"
+            android:drawableStart="@drawable/ico_security"
+            android:drawablePadding="10dp"
+            android:drawableEnd="@drawable/ico_eye_open"
             android:hint="@string/enter_your_password"
             android:inputType="textPassword"
             android:paddingHorizontal="10dp" />
@@ -62,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/forgot_password"
-            android:textColor="?attr/colorTertiary"
+            android:textColor="?attr/colorPrimary"
             android:textSize="14sp"
             android:textStyle="bold"
             android:fontFamily="@font/preahvihear" />

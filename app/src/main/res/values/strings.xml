@@ -50,4 +50,7 @@
     <string name="loading">Loading…</string>
     <string name="add_category">Add Category</string>
     <string name="enter_new_category">Enter new category</string>
+    <string name="damn_you_forget_your_password">Damn!! You Forget your password?</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="add_receipt">Add Receipt</string>
 </resources>
