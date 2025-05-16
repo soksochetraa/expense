@@ -11,10 +11,8 @@ import android.widget.RemoteViews;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.expense.databinding.ActivityHomeBinding;
@@ -28,7 +26,6 @@ public class HomeActivity extends BaseActivity {
 
     private static final String CHANNEL_ID = "expense";
     public ActivityHomeBinding binding;
-
     private static final int REQUEST_CODE_NOTIFICATION = 101;
 
     @Override
@@ -71,23 +68,13 @@ public class HomeActivity extends BaseActivity {
             binding.bottomNavigation.setSelectedItemId(savedInstanceState.getInt("selectedItemId"));
         }
 
-        checkAndRequestNotificationPermission();
         initFcmAndSubscribeTopic();
-
     }
 
     public void LoadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-    }
-
-    private void checkAndRequestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}, REQUEST_CODE_NOTIFICATION);
-            }
-        }
     }
 
     private void createNotificationChannel() {
@@ -132,7 +119,6 @@ public class HomeActivity extends BaseActivity {
                     Log.d("FCM", "Device Token: " + token);
                 });
 
-        // Subscribe to topic for broadcast
         FirebaseMessaging.getInstance().subscribeToTopic("all")
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -146,7 +132,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int deviceId) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId);
-
     }
 
     public void showProgressBar() {
