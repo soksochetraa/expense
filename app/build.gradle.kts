@@ -37,6 +37,8 @@ android {
 
 dependencies {
     implementation (libs.glide)
+    implementation (platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
     annotationProcessor (libs.compiler)
     implementation (libs.play.services.auth)
     implementation(libs.room.runtime)

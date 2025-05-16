@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="?attr/colorOnBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnBackground"
     tools:context=".LogInActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="331dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="127dp"
+        android:fontFamily="@font/preahvihear"
         android:gravity="start"
         android:text="@string/welcome_back_glad_to_see_you_again"
         android:textColor="?attr/colorAccent"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="@font/preahvihear"
-        android:layout_marginTop="127dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,8 +55,8 @@
             android:autofillHints="password"
             android:background="@drawable/et_bg"
             android:drawableStart="@drawable/ico_security"
-            android:drawablePadding="10dp"
             android:drawableEnd="@drawable/ico_eye_open"
+            android:drawablePadding="10dp"
             android:hint="@string/enter_your_password"
             android:inputType="textPassword"
             android:paddingHorizontal="10dp" />
@@ -66,44 +66,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/preahvihear"
             android:text="@string/forgot_password"
             android:textColor="?attr/colorPrimary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/preahvihear" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/loading_bar"
-        android:elevation="26dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:background="#80000000"
+        android:elevation="26dp"
         android:gravity="center"
-        android:background="#80000000">
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:gravity="center_horizontal"
-            android:background="@drawable/card_latest_expense_bg">
+            android:background="@drawable/card_latest_expense_bg"
+            android:gravity="center_horizontal">
 
             <ProgressBar
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="40dp"
                 android:elevation="1dp"
-                android:visibility="visible"
-                android:indeterminateTint="@color/white" />
+                android:indeterminateTint="@color/white"
+                android:visibility="visible" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:fontFamily="@font/preahvihear"
                 android:gravity="center"
                 android:text="@string/loading"
                 android:textColor="@color/white"
-                android:layout_marginTop="100dp"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -113,13 +113,13 @@
         android:id="@+id/btn_log_in"
         android:layout_width="331dp"
         android:layout_height="62dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/btn_bg"
         android:fontFamily="@font/preahvihear"
         android:text="@string/log_in"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -144,11 +144,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
+            android:fontFamily="@font/preahvihear"
             android:text="@string/or_login_with"
             android:textColor="?attr/colorTertiary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/preahvihear" />
+            android:textStyle="bold" />
 
         <View
             android:layout_width="112dp"
@@ -218,14 +218,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:layout_marginStart="76dp"
+        android:fontFamily="@font/preahvihear"
         android:text="@string/dont_have_account"
         android:textColor="?attr/colorTertiary"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:fontFamily="@font/preahvihear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintEnd_toStartOf="@+id/tv_register"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
@@ -234,11 +235,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
+        android:fontFamily="@font/preahvihear"
         android:text="@string/register_now"
         android:textColor="#529C97"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:fontFamily="@font/preahvihear"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />

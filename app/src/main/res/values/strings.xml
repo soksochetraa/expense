@@ -53,4 +53,6 @@
     <string name="damn_you_forget_your_password">Damn!! You Forget your password?</string>
     <string name="reset_password">Reset Password</string>
     <string name="add_receipt">Add Receipt</string>
+    <string name="you_have_exceeded_your_budget">You have exceeded your budget!</string>
+    <string name="budget_warning">Budget Warning!</string>
 </resources>

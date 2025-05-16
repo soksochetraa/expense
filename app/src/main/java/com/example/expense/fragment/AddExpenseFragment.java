@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -61,12 +60,9 @@ public class AddExpenseFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1001;
     private static final int REQUEST_GALLERY = 1002;
     private static final int REQUEST_PERMISSIONS = 1003;
-    private static final String[] REQUIRED_PERMISSIONS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-            ? new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES}
-            : new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+    private static final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES};
 
     private Uri imageUrl;
-    private String uploadedImageUrl = null;
 
     @Nullable
     @Override
@@ -209,6 +205,13 @@ public class AddExpenseFragment extends Fragment {
             public void onSuccess(Card result) {
                 if (isAdded()) {
                     Toast.makeText(requireContext(), "Expense added successfully!", Toast.LENGTH_SHORT).show();
+                    if (homeActivity != null) {
+                        if (result.getCurrency().equals("USD") && result.getAmount() > 100) {
+                            homeActivity.showBasicNotification(result.getRemark());
+                        } else if (result.getCurrency().equals("KHR") && result.getAmount() > 400000) {
+                            homeActivity.showBasicNotification(result.getRemark());
+                        }
+                    }
                     clearInputFields();
                     if (homeActivity != null) {
                         homeActivity.binding.bottomNavigation.setSelectedItemId(R.id.nav_home);
@@ -242,7 +245,6 @@ public class AddExpenseFragment extends Fragment {
         binding.imagePreview.setVisibility(View.GONE);
         binding.btnAddImageBefore.setVisibility(View.VISIBLE);
         imageUrl = null;
-        uploadedImageUrl = null;
     }
 
     private void getUsernameFromDatabase(String userID) {
@@ -269,6 +271,8 @@ public class AddExpenseFragment extends Fragment {
     }
 
     private void loadCategories() {
+        int selectedPosition = binding.spinnerCategory.getSelectedItemPosition();
+
         List<Category> categories = categoryDao.getAllCategories();
         List<String> names = new ArrayList<>();
         for (Category cat : categories) {
@@ -278,6 +282,12 @@ public class AddExpenseFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, names);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerCategory.setAdapter(adapter);
+
+        if (selectedPosition >= 0 && selectedPosition < names.size()) {
+            binding.spinnerCategory.setSelection(selectedPosition);
+        } else {
+            binding.spinnerCategory.setSelection(0);
+        }
     }
 
     private void showImagePickerDialog() {
