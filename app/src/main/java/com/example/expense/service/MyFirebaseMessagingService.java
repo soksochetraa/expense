@@ -25,7 +25,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
-        Log.d("FCM", "New token" + token);
+        Log.d("FCM", "New token : " + token);
 
         FirebaseMessaging.getInstance().subscribeToTopic("all")
                 .addOnCompleteListener(task -> {
