@@ -87,7 +87,11 @@ public class RegisterActivity extends BaseActivity {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    loadingBar.setVisibility(View.GONE);
+
+                    loadingBar.postDelayed(() -> {
+                        loadingBar.setVisibility(View.GONE);
+                    }, 1500);
+
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {

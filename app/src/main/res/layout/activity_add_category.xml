@@ -115,29 +115,15 @@
         android:visibility="gone"
         android:gravity="center"
         android:background="#80000000">
-        <RelativeLayout
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:gravity="center_horizontal"
-            android:background="@drawable/card_latest_expense_bg">
-            <ProgressBar
-                android:layout_marginTop="40dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:elevation="1dp"
-                android:visibility="visible"
-                android:indeterminateTint="@color/white"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/preahvihear"
-                android:gravity="center"
-                android:text="@string/loading"
-                android:textColor="@color/white"
-                android:layout_marginTop="100dp"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

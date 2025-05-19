@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -33,6 +35,12 @@ import com.example.expense.model.Card;
 import com.example.expense.model.Category;
 import com.example.expense.repository.CardRepository;
 import com.example.expense.repository.IApiCallback;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,16 +61,17 @@ public class AddExpenseFragment extends Fragment {
     private FragmentAddExpenseBinding binding;
     private FirebaseAuth mAuth;
     private CardRepository cardRepository;
-    HomeActivity homeActivity;
-    boolean isLoading = false;
-    CategoryDao categoryDao;
-
-    private static final int REQUEST_CAMERA = 1001;
-    private static final int REQUEST_GALLERY = 1002;
-    private static final int REQUEST_PERMISSIONS = 1003;
+    private HomeActivity homeActivity;
+    private boolean isLoading = false;
+    private CategoryDao categoryDao;
     private static final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES};
-
     private Uri imageUrl;
+
+    private ActivityResultLauncher<String[]> permissionLauncher;
+    private ActivityResultLauncher<Intent> cameraLauncher;
+    private ActivityResultLauncher<Intent> galleryLauncher;
+
+    private InterstitialAd mInterstitialAd;
 
     @Nullable
     @Override
@@ -88,7 +97,6 @@ public class AddExpenseFragment extends Fragment {
             categoryDao.insert(new Category("Entertainment"));
         }
 
-        loadCategories();
         homeActivity = (HomeActivity) getActivity();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -117,7 +125,7 @@ public class AddExpenseFragment extends Fragment {
             if (hasPermissions()) {
                 showImagePickerDialog();
             } else {
-                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_PERMISSIONS);
+                permissionLauncher.launch(REQUIRED_PERMISSIONS);
             }
         });
 
@@ -126,16 +134,79 @@ public class AddExpenseFragment extends Fragment {
             binding.btnAddImageBefore.setVisibility(View.VISIBLE);
             imageUrl = null;
         });
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        permissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestMultiplePermissions(),
+                result -> {
+                    boolean granted = true;
+                    for (Boolean b : result.values()) {
+                        if (!b) {
+                            granted = false;
+                            break;
+                        }
+                    }
+                    if (granted) {
+                        showImagePickerDialog();
+                    } else {
+                        showPermissionSettingsDialog();
+                    }
+                });
+
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && imageUrl != null) {
+                        binding.imagePreview.setImageURI(imageUrl);
+                        binding.imagePreviewContainer.setVisibility(View.VISIBLE);
+                        binding.btnAddImageBefore.setVisibility(View.GONE);
+                    }
+                });
+
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        imageUrl = result.getData().getData();
+                        binding.imagePreview.setImageURI(imageUrl);
+                        binding.imagePreviewContainer.setVisibility(View.VISIBLE);
+                        binding.btnAddImageBefore.setVisibility(View.GONE);
+                    }
+                });
+
         loadCategories();
+        loadInterstitialAd();
     }
 
     private void onAddExpenseClicked() {
         if (isLoading) return;
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    mInterstitialAd = null;
+                    loadInterstitialAd();
+                    continueAddExpense();
+                }
+
+                @Override
+                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                    mInterstitialAd = null;
+                    continueAddExpense();
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    mInterstitialAd = null;
+                }
+            });
+            mInterstitialAd.show(requireActivity());
+        } else {
+            continueAddExpense();
+        }
+    }
+
+    private void continueAddExpense() {
         isLoading = true;
         ((HomeActivity) requireActivity()).showProgressBar();
 
@@ -307,7 +378,7 @@ public class AddExpenseFragment extends Fragment {
 
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, REQUEST_GALLERY);
+        galleryLauncher.launch(galleryIntent);
     }
 
     private void openCamera() {
@@ -318,7 +389,7 @@ public class AddExpenseFragment extends Fragment {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUrl);
-        startActivityForResult(cameraIntent, REQUEST_CAMERA);
+        cameraLauncher.launch(cameraIntent);
     }
 
     private boolean hasPermissions() {
@@ -328,33 +399,6 @@ public class AddExpenseFragment extends Fragment {
             }
         }
         return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_PERMISSIONS) {
-            boolean allGranted = true;
-            boolean showRationale = false;
-
-            for (int i = 0; i < permissions.length; i++) {
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    allGranted = false;
-                    if (!shouldShowRequestPermissionRationale(permissions[i])) {
-                        showRationale = true;
-                    }
-                }
-            }
-
-            if (allGranted) {
-                showImagePickerDialog();
-            } else if (showRationale) {
-                showPermissionSettingsDialog();
-            } else {
-                Toast.makeText(getContext(), "Permission denied.", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void showPermissionSettingsDialog() {
@@ -376,20 +420,23 @@ public class AddExpenseFragment extends Fragment {
                 .show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                requireContext(),
+                "ca-app-pub-5339112118654088/7859283453",
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_GALLERY && data != null) {
-                imageUrl = data.getData();
-            }
-
-            if (imageUrl != null) {
-                binding.imagePreview.setImageURI(imageUrl);
-                binding.imagePreviewContainer.setVisibility(View.VISIBLE);
-                binding.btnAddImageBefore.setVisibility(View.GONE);
-            }
-        }
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                        mInterstitialAd = null;
+                    }
+                });
     }
+
 }

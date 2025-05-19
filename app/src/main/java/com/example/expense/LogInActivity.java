@@ -70,7 +70,9 @@ public class LogInActivity extends BaseActivity {
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    binding.loadingBar.setVisibility(View.GONE);
+                    binding.loadingBar.postDelayed(() -> {
+                        binding.loadingBar.setVisibility(View.GONE);
+                    }, 1500);
                     if (task.isSuccessful()) {
                         Toast.makeText(LogInActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 

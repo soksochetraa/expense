@@ -44,7 +44,9 @@ public class ResetPasswordActivity extends BaseActivity {
 
             mAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener(task -> {
-                        binding.loadingBar.setVisibility(View.GONE);
+                        binding.loadingBar.postDelayed(() -> {
+                            binding.loadingBar.setVisibility(View.GONE);
+                        }, 1500);
                         if (task.isSuccessful()) {
                             binding.showingMessage.setVisibility(View.VISIBLE);
                             Toast.makeText(this, "Reset email sent to " + email, Toast.LENGTH_LONG).show();

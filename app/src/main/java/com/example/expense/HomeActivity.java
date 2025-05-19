@@ -20,13 +20,17 @@ import com.example.expense.fragment.AddExpenseFragment;
 import com.example.expense.fragment.ExpenseListFragment;
 import com.example.expense.fragment.HomeFragment;
 import com.example.expense.fragment.SettingFragment;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HomeActivity extends BaseActivity {
 
     private static final String CHANNEL_ID = "expense";
     public ActivityHomeBinding binding;
-    private static final int REQUEST_CODE_NOTIFICATION = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,24 @@ public class HomeActivity extends BaseActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        MobileAds.initialize(this, initializationStatus -> {});
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.d("AdMob", "Ad loaded successfully");
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError adError) {
+                Log.e("AdMob", "Ad failed to load: " + adError.getMessage());
+            }
+        });
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -112,21 +134,13 @@ public class HomeActivity extends BaseActivity {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Log.w("FCM", "Fetching FCM registration token failed", task.getException());
                         return;
                     }
                     String token = task.getResult();
-                    Log.d("FCM", "Device Token: " + token);
                 });
 
         FirebaseMessaging.getInstance().subscribeToTopic("all")
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("FCM", "Subscribed to topic: all");
-                    } else {
-                        Log.d("FCM", "Topic subscription failed.");
-                    }
-                });
+                .addOnCompleteListener(task -> {});
     }
 
     @Override
@@ -139,6 +153,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void hideProgressBar() {
-        binding.loadingBar.setVisibility(View.GONE);
+        binding.loadingBar.postDelayed(() -> {
+            binding.loadingBar.setVisibility(View.GONE);
+        }, 1500);
     }
 }

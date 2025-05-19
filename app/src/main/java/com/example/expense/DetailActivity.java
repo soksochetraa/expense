@@ -45,6 +45,9 @@ public class DetailActivity extends BaseActivity {
                     Glide.with(DetailActivity.this)
                             .load(card.getImageUrl())
                             .into(binding.receipt);
+                } else {
+                    binding.receipt.setVisibility(View.GONE);
+                    binding.tvReceipt.setVisibility(View.GONE);
                 }
 
                 hideProgressBar();
@@ -65,6 +68,8 @@ public class DetailActivity extends BaseActivity {
     }
 
     public void hideProgressBar() {
-        binding.loadingBar.setVisibility(View.GONE);
+        binding.loadingBar.postDelayed(() -> {
+            binding.loadingBar.setVisibility(View.GONE);
+        }, 1500);
     }
 }

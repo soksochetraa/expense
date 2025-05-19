@@ -75,38 +75,21 @@
 
     <RelativeLayout
         android:id="@+id/loading_bar"
+        android:elevation="26dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
-        android:elevation="26dp"
+        android:visibility="gone"
         android:gravity="center"
-        android:visibility="gone">
+        android:background="#80000000">
 
-        <RelativeLayout
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/card_latest_expense_bg"
-            android:gravity="center_horizontal">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
 
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:elevation="1dp"
-                android:indeterminateTint="@color/white"
-                android:visibility="visible" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:fontFamily="@font/preahvihear"
-                android:gravity="center"
-                android:text="@string/loading"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
     </RelativeLayout>
 
     <Button
